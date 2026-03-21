@@ -21,6 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /app/CreditApproval
     ports:
       - "4000:4000"
     volumes:
@@ -40,6 +41,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /app/CreditApproval
     volumes:
       - .:/app
     command: celery -A CreditApproval.celery worker -l info

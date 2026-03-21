@@ -6,11 +6,15 @@ from celery import shared_task
 from django.conf import settings
 from .models import Customer, Loan
 from datetime import date
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+XLSX_DIR = BASE_DIR.parent
 
 
 @shared_task
 def ingest_customer_data():
-    path = os.path.join(settings.BASE_DIR, "customer_data.xlsx")
+    path = os.path.join(XLSX_DIR, "customer_data.xlsx")
     wb = openpyxl.load_workbook(path)
     ws = wb.active
 
@@ -43,7 +47,7 @@ def ingest_customer_data():
 
 @shared_task
 def ingest_loan_data():
-    path = os.path.join(settings.BASE_DIR, "loan_data.xlsx")
+    path = os.path.join(XLSX_DIR, "loan_data.xlsx")
     wb = openpyxl.load_workbook(path)
     ws = wb.active
 
