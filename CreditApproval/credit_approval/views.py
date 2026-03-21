@@ -57,7 +57,7 @@ class RegisterView(APIView):
 class CheckEligibilityView(APIView):
     def post(self, request):
         # 1. validate the request using serializer
-        request_serializer = CheckEligibilityRequestSerializer(request.data)
+        request_serializer = CheckEligibilityRequestSerializer(data=request.data)
 
         if not request_serializer.is_valid():
             return Response(
@@ -77,7 +77,7 @@ class CreateLoanView(APIView):
     # POST /create-loan
     def post(self, request):
         # 1. validate the request using serializer
-        request_serializer = CreateLoanRequestSerializer(request.data)
+        request_serializer = CreateLoanRequestSerializer(data=request.data)
 
         if not request_serializer.is_valid():
             return Response(
