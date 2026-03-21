@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "credit_approval",
     "rest_framework",
+    "credit_approval.apps.CreditApprovalConfig",
 ]
 
 MIDDLEWARE = [
