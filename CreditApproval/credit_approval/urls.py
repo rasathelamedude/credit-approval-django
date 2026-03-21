@@ -1,4 +1,4 @@
-# URL endpoints
+# URL endpoints (routes)
 
 from django.contrib import admin
 from django.urls import path, include

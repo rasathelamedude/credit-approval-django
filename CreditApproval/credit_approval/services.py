@@ -1,1 +1,2 @@
-# Credit score logic
+# Credit score logic (helper function and logic)
+
