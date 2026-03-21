@@ -154,7 +154,7 @@ class ViewLoanByIdResponseSerializer(serializers.ModelSerializer):
 
 
 # /view-loans/customer_id response
-class ViewLoansResponseSerializer(serializers.ModelSerializer):
+class ViewLoansByCustomerIdResponseSerializer(serializers.ModelSerializer):
     monthly_installment = serializers.DecimalField(
         max_digits=10, decimal_places=2, source="monthly_repayment"
     )
