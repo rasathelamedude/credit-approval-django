@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-06a#o%wp_c%@rtd(io6i9y4py0@89gmo)j@m!j$dfhz8bh*@*$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -77,12 +77,12 @@ WSGI_APPLICATION = "CreditApproval.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.environ.get("DB_NAME", "db.sqlite3"),
-        # "USER": os.environ.get("DB_USER", "postgres"),
-        # "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
-        # "HOST": os.environ.get("DB_HOST", "localhost"),
-        # "PORT": os.environ.get("DB_PORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME", "postgres"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 

@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 4000
 
-CMD ["gunicorn", "CreditApproval.wsgi:application", "--bind", "0.0.0.0:4000"]
+CMD ["manage.py", "runserver", "0.0.0.0:4000"]
