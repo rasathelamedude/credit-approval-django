@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from decimal import Decimal
 from .models import Customer, Loan
 from .serializers import (
     RegisterRequestSerializer,
@@ -90,7 +89,15 @@ class CreateLoanView(APIView):
         eligibility_result = check_elegibility(data)
 
         if not eligibility_result["approval"]:
-            response_serializer = CreateLoanResponseSerializer()
+            response_serializer = CreateLoanResponseSerializer(
+                {
+                    "loan_id": None,
+                    "customer_id": data["customer_id"],
+                    "loan_approved": False,
+                    "message": "Loan not approved based on credit score",
+                    "monthly_installment": eligibility_result["monthly_installment"],
+                }
+            )
             return Response(
                 response_serializer.data, status=status.HTTP_400_BAD_REQUEST
             )
@@ -128,6 +135,7 @@ class CreateLoanView(APIView):
 # GET /view-loan/{loan_id}
 class ViewLoanByIdView(APIView):
     def get(self, request, loan_id):
+        # 1. Try to get the loan
         try:
             loan = Loan.objects.select_related("customer").get(pk=loan_id)
         except Loan.DoesNotExist:
@@ -135,6 +143,7 @@ class ViewLoanByIdView(APIView):
                 {"message": "Loan not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
+        # 2. send the response
         response_serializer = ViewLoanByIdResponseSerializer(loan)
         return Response(response_serializer.data, status=status.HTTP_200_OK)
 
@@ -142,6 +151,7 @@ class ViewLoanByIdView(APIView):
 # GET /view-loans/{customer_id}
 class ViewLoansByCustomerIdView(APIView):
     def get(self, request, customer_id):
+        # 1. Try to get the customer
         try:
             customer = Customer.objects.get(pk=customer_id)
         except Customer.DoesNotExist:
@@ -149,7 +159,9 @@ class ViewLoansByCustomerIdView(APIView):
                 {"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
+        # 2. Get the loans for the found customer
         loans = Loan.objects.filter(customer=customer)
 
+        # 3. send the response
         response_serializer = ViewLoansByCustomerIdResponseSerializer(loans, many=True)
         return Response(response_serializer.data, status=status.HTTP_200_OK)
