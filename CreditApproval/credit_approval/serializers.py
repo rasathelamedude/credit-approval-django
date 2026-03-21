@@ -94,9 +94,6 @@ class CheckEligibilityRequestSerializer(serializers.Serializer):
             raise serializers.ValidationError("Customer does not exist")
         return value
 
-    def validate(self, attrs):
-        return attrs
-
 
 # /check-elegibility response
 class CheckEligibilityResponseSerializer(serializers.Serializer):
@@ -114,6 +111,11 @@ class CreateLoanRequestSerializer(serializers.Serializer):
     loan_amount = serializers.DecimalField(max_digits=12, decimal_places=2)
     interest_rate = serializers.DecimalField(max_digits=5, decimal_places=2)
     tenure = serializers.IntegerField()
+
+    def validate_customer_id(self, value):
+        if not Customer.objects.filter(customer_id=value).exists():
+            raise serializers.ValidationError("Customer does not exist")
+        return value
 
 
 # /create-loan response
