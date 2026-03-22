@@ -42,12 +42,13 @@ services:
       - db
       - redis
     environment:
-      - DB_HOST=db
+      - DB_HOST=localhost
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - RUN_INGESTION=true
 
   celery:
     build:

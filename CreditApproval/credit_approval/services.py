@@ -2,6 +2,7 @@
 
 from django.utils import timezone
 from .models import Customer, Loan
+from decimal import Decimal
 
 
 def check_elegibility(data):
@@ -55,8 +56,8 @@ def calculate_credit_score(customer):
 
 
 def calculate_emi(principal, interest_rate, tenure):
-    r = float(interest_rate) / 12 / 100
-    n = tenure
+    r = Decimal(interest_rate) / 12 / 100
+    n = Decimal(tenure)
 
     if r == 0:
         return principal / n
@@ -80,7 +81,7 @@ def apply_rules(credit_score, interest_rate, emi_sum, customer, loan_amount):
     corrected_interest_rate = interest_rate
 
     # EMI rule
-    if emi_sum > 0.5 * customer.monthly_salary:
+    if emi_sum > Decimal(0.5) * customer.monthly_salary:
         return approved, corrected_interest_rate
 
     # Credit score rules

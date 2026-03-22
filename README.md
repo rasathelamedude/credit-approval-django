@@ -223,6 +223,16 @@ Additional rules:
 - If total current EMIs exceed 50% of monthly salary — rejected
 - If total current loan volume exceeds approved limit — credit score set to 0
 
+## Running Tests
+
+Unit tests cover all 5 endpoints including success cases, validation, rejection logic, and response shapes.
+
+To run the test suite locally:
+
+```bash
+python manage.py test credit_approval
+```
+
 ## Stopping the Application
 
 ```bash
