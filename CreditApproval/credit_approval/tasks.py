@@ -3,9 +3,7 @@
 import os
 import openpyxl
 from celery import shared_task
-from django.conf import settings
 from .models import Customer, Loan
-from datetime import date
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,11 +22,10 @@ def ingest_customer_data():
             customer_id,
             first_name,
             last_name,
+            age,
             phone_number,
             monthly_salary,
-            age,
             approved_limit,
-            current_debt,
         ) = row
 
         Customer.objects.get_or_create(
@@ -40,7 +37,6 @@ def ingest_customer_data():
                 "monthly_salary": monthly_salary,
                 "age": age,
                 "approved_limit": approved_limit,
-                "current_debt": current_debt or 0,
             },
         )
 
