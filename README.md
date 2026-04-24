@@ -12,7 +12,7 @@ A Django REST API that evaluates loan eligibility based on credit scoring derive
 ## Project Structure
 
 ```
-CreditApproval/
+CreditApproval/              ← repo root
 ├── CreditApproval/          # Project config (settings, urls, celery)
 ├── credit_approval/         # Main application
 │   ├── models.py            # Customer and Loan models
@@ -21,10 +21,13 @@ CreditApproval/
 │   ├── tasks.py             # Celery background ingestion tasks
 │   ├── views.py             # API endpoint handlers
 │   └── urls.py              # App-level routing
-├── customer_data.xlsx        # Seed data — customers
-├── loan_data.xlsx            # Seed data — historical loans
+├── .gitignore
 ├── Dockerfile
-└── docker-compose.yml
+├── README.md
+├── customer_data.xlsx        # Seed data — customers
+├── docker-compose.yml
+├── loan_data.xlsx            # Seed data — historical loans
+└── requirements.txt
 ```
 
 ## Getting Started
